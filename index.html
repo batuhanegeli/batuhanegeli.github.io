@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Batuhan Egeli | Game Developer & 3D Artist</title>
   
-  <!-- Fonts: Playfair Display (Logo için) & Comfortaa / JetBrains Mono -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
   <style>
     :root {
       --bg-deep: #030712;
-      --accent: #38bdf8; /* Cyber Cyan / Blue */
+      --accent: #38bdf8;
       --accent-glow: rgba(56, 189, 248, 0.15);
       --text-main: #f1f5f9;
       --text-muted: #94a3b8;
@@ -26,7 +26,6 @@
       padding: 0;
     }
 
-    /* Sayfa Sayfa Kaydırma Efekti (Scroll Snap) */
     html, body {
       background-color: var(--bg-deep);
       color: var(--text-main);
@@ -37,7 +36,6 @@
       scroll-behavior: smooth;
     }
 
-    /* Arka Plan Hareketli Efekt */
     .bg-animation {
       position: fixed;
       top: 0;
@@ -66,7 +64,6 @@
       100% { transform: translateY(50px) scale(1.1); }
     }
 
-    /* Navbar */
     nav {
       position: fixed;
       top: 0;
@@ -83,7 +80,6 @@
       z-index: 1000;
     }
 
-    /* Sol Üst Logo */
     .logo {
       font-family: 'Playfair Display', serif;
       font-style: italic;
@@ -122,9 +118,8 @@
       color: var(--accent);
     }
 
-    /* Tam Ekran Bölümler */
     .page-section {
-      position: relative; /* Sağ alttaki buton konumlandırması için gerekli */
+      position: relative;
       height: 100vh;
       width: 100vw;
       scroll-snap-align: start;
@@ -163,7 +158,6 @@
       font-size: 1.8rem;
     }
 
-    /* İki Kolonlu Düzen */
     .split-layout {
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
@@ -172,7 +166,6 @@
       max-width: 1100px;
     }
 
-    /* Sağ Taraf Görsel / Tasarım Kartları */
     .visual-card {
       background: rgba(10, 22, 40, 0.6);
       border: 1px solid rgba(56, 189, 248, 0.15);
@@ -207,7 +200,6 @@
       color: var(--text-muted);
     }
 
-    /* Hero Bölümü */
     .hero-tag {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.85rem;
@@ -236,7 +228,6 @@
       line-height: 1.7;
     }
 
-    /* Buton Stilleri */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -259,14 +250,14 @@
       transform: translateY(-2px);
     }
 
-    /* Son Sayfa Sağ Alt Köşe GitHub Butonu */
+    /* Son sayfa sağ alt köşe butonu güvenli konumlandırma */
     .bottom-right-btn {
       position: absolute;
-      bottom: 3rem;
+      bottom: 2.5rem;
       right: 10vw;
+      z-index: 10;
     }
 
-    /* Yetenekler Stack */
     .skills-wrapper {
       display: flex;
       flex-wrap: wrap;
@@ -299,12 +290,12 @@
       font-size: 1.1rem;
     }
 
-    /* Proje Kartları */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1.5rem;
       max-width: 950px;
+      margin-bottom: 2rem;
     }
 
     .project-card {
@@ -353,7 +344,6 @@
   <div class="bg-animation"></div>
   <div class="ambient-glow"></div>
 
-  <!-- Navbar -->
   <nav>
     <a href="#home" class="logo">Batuhan E.</a>
     <ul class="nav-links">
@@ -364,7 +354,6 @@
     </ul>
   </nav>
 
-  <!-- 1. Sayfa: Home / Hero -->
   <section id="home" class="page-section in-view">
     <div>
       <div class="hero-tag">Game Developer & 3D Artist</div>
@@ -373,7 +362,6 @@
     </div>
   </section>
 
-  <!-- 2. Sayfa: About -->
   <section id="about" class="page-section">
     <div class="split-layout">
       <div>
@@ -392,7 +380,6 @@
     </div>
   </section>
 
-  <!-- 3. Sayfa: Skills -->
   <section id="skills" class="page-section">
     <div class="split-layout">
       <div>
@@ -416,13 +403,11 @@
     </div>
   </section>
 
-  <!-- 4. Sayfa: Projects (Son Sayfa - Sağ Altta GitHub Butonu) -->
   <section id="projects" class="page-section">
     <div>
       <h2 class="section-title"><i class="fas fa-layer-group"></i> Featured Projects</h2>
       
       <div class="projects-grid">
-        <!-- Proje 1 -->
         <div class="project-card">
           <h3>CyberWarrior</h3>
           <span class="project-tech">Tech: Unity / C# / URP</span>
@@ -432,7 +417,6 @@
           </a>
         </div>
 
-        <!-- Proje 2 -->
         <div class="project-card">
           <h3>Cinematic Environment</h3>
           <span class="project-tech">Tech: Unreal Engine 5 / Blender</span>
@@ -442,10 +426,8 @@
           </a>
         </div>
       </div>
-
     </div>
 
-    <!-- Sağ Alt Köşedeki GitHub Butonu -->
     <div class="bottom-right-btn">
       <a href="https://github.com/batuhanegeli" target="_blank" class="btn btn-primary">
         <i class="fab fa-github"></i> GitHub Profile
@@ -453,7 +435,6 @@
     </div>
   </section>
 
-  <!-- Sayfa Geçişlerini ve Blur Efektini Yürüten Script -->
   <script>
     const sections = document.querySelectorAll('.page-section');
 
