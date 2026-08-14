@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Batuhan Egeli | Game Developer & 3D Artist</title>
   
-  <!-- Fonts -->
+  <!-- Fonts: Playfair Display (Logo için) & Comfortaa / JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
@@ -83,12 +83,15 @@
       z-index: 1000;
     }
 
+    /* Sol Üst Logo: İstediğin Font Tarzı (Playfair Display Italic) */
     .logo {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.1rem;
-      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 600;
+      font-size: 1.4rem;
       color: var(--accent);
       text-decoration: none;
+      letter-spacing: 0.5px;
     }
 
     .nav-links {
@@ -114,7 +117,7 @@
       height: 100vh;
       width: 100vw;
       scroll-snap-align: start;
-      scroll-margin-top: 75px; /* Navbar yüksekliği kadar offset düzeltmesi */
+      scroll-margin-top: 75px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -147,6 +150,49 @@
     .section-title i {
       color: var(--accent);
       font-size: 1.8rem;
+    }
+
+    /* İki Kolonlu Düzen (Sol Yazı - Sağ Görsel/Kart) */
+    .split-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3rem;
+      align-items: center;
+      max-width: 1100px;
+    }
+
+    /* Sağ Taraf Görsel / Tasarım Kutuları */
+    .visual-card {
+      background: rgba(10, 22, 40, 0.6);
+      border: 1px solid rgba(56, 189, 248, 0.15);
+      border-radius: 16px;
+      padding: 2.5rem;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      transition: all 0.3s ease;
+    }
+
+    .visual-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+    }
+
+    .visual-card i {
+      font-size: 3.5rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .visual-card h4 {
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .visual-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
     }
 
     /* Hero Bölümü */
@@ -211,7 +257,6 @@
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
-      max-width: 800px;
     }
 
     .skill-pill {
@@ -228,7 +273,7 @@
       transition: all 0.3s ease;
     }
 
-    .skill-pill:hover, .project-card:hover {
+    .skill-pill:hover, .project-card:hover, .visual-card:hover {
       border-color: var(--accent);
       background: rgba(56, 189, 248, 0.08);
       box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
@@ -243,7 +288,7 @@
     /* Proje Kartları */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1.5rem;
       max-width: 950px;
     }
@@ -296,7 +341,7 @@
 
   <!-- Navbar -->
   <nav>
-    <a href="#home" class="logo">&lt;batuhan.dev /&gt;</a>
+    <a href="#home" class="logo">Batuhan E.</a>
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
       <li><a href="#about">About</a></li>
@@ -320,27 +365,45 @@
     </div>
   </section>
 
-  <!-- 2. Sayfa: About -->
+  <!-- 2. Sayfa: About (Sağ Tarafta Görsel/Kart ile) -->
   <section id="about" class="page-section">
-    <div>
-      <h2 class="section-title"><i class="fas fa-user-astronaut"></i> About Me</h2>
-      <p style="font-size: 1.1rem; line-height: 1.9; color: var(--text-muted); max-width: 700px;">
-        I am a developer who loves blending clean code architecture with aesthetic 3D visuals. I develop mobile projects in Unity and focus deeply on environment design, cinematic lighting, and custom particle systems in Unreal Engine 5.
-      </p>
+    <div class="split-layout">
+      <div>
+        <h2 class="section-title"><i class="fas fa-user-astronaut"></i> About Me</h2>
+        <p style="font-size: 1.1rem; line-height: 1.9; color: var(--text-muted);">
+          I am a developer who loves blending clean code architecture with aesthetic 3D visuals. I develop mobile projects in Unity and focus deeply on environment design, cinematic lighting, and custom particle systems in Unreal Engine 5.
+        </p>
+      </div>
+      <div>
+        <div class="visual-card">
+          <i class="fas fa-cube"></i>
+          <h4>3D & Code Fusion</h4>
+          <p>Designing interactive mechanics and immersive environments with precision.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- 3. Sayfa: Skills -->
+  <!-- 3. Sayfa: Skills (Sağ Tarafta Görsel/Kart ile) -->
   <section id="skills" class="page-section">
-    <div>
-      <h2 class="section-title"><i class="fas fa-terminal"></i> Skills & Stack</h2>
-      <div class="skills-wrapper">
-        <div class="skill-pill"><i class="fab fa-unity"></i> Unity Engine</div>
-        <div class="skill-pill"><i class="fas fa-code"></i> C# Programming</div>
-        <div class="skill-pill"><i class="fas fa-gamepad"></i> Unreal Engine 5</div>
-        <div class="skill-pill"><i class="fas fa-cube"></i> Blender 3D</div>
-        <div class="skill-pill"><i class="fas fa-wind"></i> Niagara VFX</div>
-        <div class="skill-pill"><i class="fab fa-git-alt"></i> Git & GitHub</div>
+    <div class="split-layout">
+      <div>
+        <h2 class="section-title"><i class="fas fa-terminal"></i> Skills & Stack</h2>
+        <div class="skills-wrapper">
+          <div class="skill-pill"><i class="fab fa-unity"></i> Unity Engine</div>
+          <div class="skill-pill"><i class="fas fa-code"></i> C# Programming</div>
+          <div class="skill-pill"><i class="fas fa-gamepad"></i> Unreal Engine 5</div>
+          <div class="skill-pill"><i class="fas fa-cube"></i> Blender 3D</div>
+          <div class="skill-pill"><i class="fas fa-wind"></i> Niagara VFX</div>
+          <div class="skill-pill"><i class="fab fa-git-alt"></i> Git & GitHub</div>
+        </div>
+      </div>
+      <div>
+        <div class="visual-card">
+          <i class="fas fa-laptop-code"></i>
+          <h4>Development Stack</h4>
+          <p>Equipped with modern tools for high-performance game creation.</p>
+        </div>
       </div>
     </div>
   </section>
