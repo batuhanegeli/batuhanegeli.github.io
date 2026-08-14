@@ -119,7 +119,6 @@
     }
 
     .page-section {
-      position: relative;
       height: 100vh;
       width: 100vw;
       scroll-snap-align: start;
@@ -250,12 +249,18 @@
       transform: translateY(-2px);
     }
 
-    /* Projeler Bölümü Sağ Alt Köşe Butonu */
-    .bottom-right-btn {
-      position: absolute;
-      bottom: 4rem;
-      right: 10vw;
-      z-index: 10;
+    /* Projeler Alanı Kapsayıcısı ve Sağ Alt Buton Düzeni */
+    .projects-container {
+      max-width: 950px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .projects-footer-right {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1.5rem;
+      width: 100%;
     }
 
     .skills-wrapper {
@@ -294,7 +299,6 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1.5rem;
-      max-width: 950px;
     }
 
     .project-card {
@@ -354,7 +358,7 @@
     </ul>
   </nav>
 
-  <!-- 1. Sayfa: Home / Hero (Buton Kaldırıldı) -->
+  <!-- 1. Sayfa: Home / Hero -->
   <section id="home" class="page-section in-view">
     <div>
       <div class="hero-tag">Game Developer & 3D Artist</div>
@@ -406,9 +410,9 @@
     </div>
   </section>
 
-  <!-- 4. Sayfa: Projects (Sağ Altta GitHub Butonu Eklendi) -->
+  <!-- 4. Sayfa: Projects (Sağ Alta Hizalanmış GitHub Butonu İle) -->
   <section id="projects" class="page-section">
-    <div>
+    <div class="projects-container">
       <h2 class="section-title"><i class="fas fa-layer-group"></i> Featured Projects</h2>
       
       <div class="projects-grid">
@@ -430,13 +434,13 @@
           </a>
         </div>
       </div>
-    </div>
 
-    <!-- Sağ Alt Köşedeki GitHub Butonu -->
-    <div class="bottom-right-btn">
-      <a href="https://github.com/batuhanegeli" target="_blank" class="btn btn-primary">
-        <i class="fab fa-github"></i> GitHub Profile
-      </a>
+      <!-- Sağ Alta Hizalanmış GitHub Butonu -->
+      <div class="projects-footer-right">
+        <a href="https://github.com/batuhanegeli" target="_blank" class="btn btn-primary">
+          <i class="fab fa-github"></i> GitHub Profile
+        </a>
+      </div>
     </div>
   </section>
 
