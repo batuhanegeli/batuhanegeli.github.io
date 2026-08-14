@@ -83,15 +83,25 @@
       z-index: 1000;
     }
 
-    /* Sol Üst Logo: İstediğin Font Tarzı (Playfair Display Italic) */
+    /* Sol Üst Logo: İstediğin Font ve Kutu Tarzı */
     .logo {
       font-family: 'Playfair Display', serif;
       font-style: italic;
       font-weight: 600;
-      font-size: 1.4rem;
-      color: var(--accent);
+      font-size: 1.3rem;
+      color: #fff;
+      background: rgba(0, 51, 153, 0.6);
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
       text-decoration: none;
       letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+    }
+
+    .logo:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
     }
 
     .nav-links {
@@ -175,7 +185,8 @@
 
     .visual-card:hover {
       border-color: var(--accent);
-      box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.25);
+      transform: translateY(-3px);
     }
 
     .visual-card i {
@@ -273,7 +284,7 @@
       transition: all 0.3s ease;
     }
 
-    .skill-pill:hover, .project-card:hover, .visual-card:hover {
+    .skill-pill:hover, .project-card:hover {
       border-color: var(--accent);
       background: rgba(56, 189, 248, 0.08);
       box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
