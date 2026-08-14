@@ -32,12 +32,12 @@
       font-family: 'Comfortaa', cursive, sans-serif;
       height: 100vh;
       overflow-y: auto;
+      overflow-x: hidden; /* Yatay kaydırma çubuğunu tamamen engeller */
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
-      scrollbar-width: none; /* Firefox için kaydırma çubuğunu gizler */
+      scrollbar-width: none;
     }
 
-    /* Chrome, Safari ve Edge için kaydırma çubuğunu tamamen gizler */
     html::-webkit-scrollbar {
       display: none;
     }
