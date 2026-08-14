@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Batuhan Egeli | Game Developer & 3D Artist</title>
   
-  <!-- Fontlar -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
   <style>
     :root {
       --bg-deep: #030712;
-      --accent: #38bdf8; /* Canlı Siber Mavi / Cyan */
+      --accent: #38bdf8; /* Cyber Cyan / Blue */
       --accent-glow: rgba(56, 189, 248, 0.15);
       --text-main: #f1f5f9;
       --text-muted: #94a3b8;
@@ -24,18 +24,20 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      scroll-behavior: smooth;
     }
 
-    body {
+    /* Sayfa Sayfa Kaydırma Efekti (Scroll Snap) */
+    html, body {
       background-color: var(--bg-deep);
       color: var(--text-main);
       font-family: 'Comfortaa', cursive, sans-serif;
-      line-height: 1.8;
-      overflow-x: hidden;
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
     }
 
-    /* Hareketli Koyu Mavi Arka Plan Efekti */
+    /* Arka Plan Hareketli Efekt */
     .bg-animation {
       position: fixed;
       top: 0;
@@ -43,39 +45,41 @@
       width: 100vw;
       height: 100vh;
       z-index: -2;
-      background: radial-gradient(circle at 50% 30%, #0a192f 0%, #030712 70%);
+      background: radial-gradient(circle at 30% 30%, #0a192f 0%, #030712 75%);
     }
 
     .ambient-glow {
       position: fixed;
-      top: -10%;
-      left: 20%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(14, 116, 144, 0.18) 0%, rgba(0,0,0,0) 70%);
+      top: 20%;
+      left: 10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(14, 116, 144, 0.15) 0%, rgba(0,0,0,0) 70%);
       filter: blur(120px);
       z-index: -1;
       pointer-events: none;
-      animation: floatGlow 12s ease-in-out infinite alternate;
+      animation: floatGlow 10s ease-in-out infinite alternate;
     }
 
     @keyframes floatGlow {
       0% { transform: translateY(0) scale(1); }
-      100% { transform: translateY(80px) scale(1.15); }
+      100% { transform: translateY(50px) scale(1.1); }
     }
 
     /* Navbar */
     nav {
-      position: sticky;
+      position: fixed;
       top: 0;
+      left: 0;
+      width: 100%;
       background: rgba(3, 7, 18, 0.85);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(56, 189, 248, 0.08);
-      padding: 1.2rem 3rem;
+      padding: 1.2rem 5vw;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      z-index: 100;
+      z-index: 1000;
     }
 
     .logo {
@@ -95,7 +99,7 @@
     .nav-links a {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 600;
       transition: color 0.3s ease;
     }
@@ -104,22 +108,34 @@
       color: var(--accent);
     }
 
-    /* Kapsayıcı ve Sol Hizalama */
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-      text-align: left; /* Tüm yazılar sol tarafta */
+    /* Tam Ekran Bölümler (Her biri ayrı bir sayfa gibi konumlanır) */
+    .page-section {
+      height: 100vh;
+      width: 100vw;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 10vw;
+      text-align: left; /* Tamamen sol tarafa hizalı */
+      box-sizing: border-box;
+      opacity: 0;
+      transform: translateY(30px);
+      filter: blur(10px);
+      transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
     }
 
-    section {
-      margin-bottom: 7rem;
+    /* Ekrana girdiğinde aktifleşen sınıf (JS ile tetiklenir) */
+    .page-section.in-view {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
     }
 
     .section-title {
-      font-size: 1.8rem;
+      font-size: 2.2rem;
       font-weight: 700;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       display: flex;
       align-items: center;
       gap: 0.75rem;
@@ -129,31 +145,10 @@
 
     .section-title i {
       color: var(--accent);
-      font-size: 1.5rem;
-    }
-
-    /* Kaydırma Efekti (Scroll Blur & Fade Animation) */
-    .animate-on-scroll {
-      opacity: 0;
-      transform: translateY(40px);
-      filter: blur(14px);
-      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 1s cubic-bezier(0.16, 1, 0.3, 1),
-                  filter 1s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: opacity, transform, filter;
-    }
-
-    .animate-on-scroll.in-view {
-      opacity: 1;
-      transform: translateY(0);
-      filter: blur(0);
+      font-size: 1.8rem;
     }
 
     /* Hero Bölümü */
-    .hero {
-      padding: 5rem 0 3rem;
-    }
-
     .hero-tag {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.85rem;
@@ -163,11 +158,11 @@
       border-radius: 20px;
       border: 1px solid rgba(56, 189, 248, 0.2);
       display: inline-block;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
     }
 
     .hero h1 {
-      font-size: 3.2rem;
+      font-size: 3.5rem;
       font-weight: 700;
       margin-bottom: 1rem;
       letter-spacing: -1.5px;
@@ -177,9 +172,10 @@
     .hero p {
       font-size: 1.15rem;
       color: var(--text-muted);
-      max-width: 600px;
-      margin-bottom: 2.5rem;
+      max-width: 650px;
+      margin-bottom: 2rem;
       font-weight: 400;
+      line-height: 1.7;
     }
 
     .social-links {
@@ -192,7 +188,7 @@
       align-items: center;
       gap: 0.6rem;
       padding: 0.8rem 1.6rem;
-      border-radius: 12px;
+      border-radius: 10px;
       font-weight: 600;
       font-size: 0.9rem;
       text-decoration: none;
@@ -209,31 +205,65 @@
       transform: translateY(-2px);
     }
 
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.03);
+    /* Yetenekler Stack */
+    .skills-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      max-width: 800px;
+    }
+
+    .skill-pill {
+      background: rgba(56, 189, 248, 0.03);
+      border: 1px solid rgba(56, 189, 248, 0.1);
+      padding: 0.8rem 1.4rem;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
       color: var(--text-main);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s ease;
     }
 
-    .btn-secondary:hover {
+    /* Üzerine gelince parlama efekti (Hover Glow) */
+    .skill-pill:hover, .project-card:hover {
       border-color: var(--accent);
-      background: rgba(56, 189, 248, 0.05);
-      transform: translateY(-2px);
+      background: rgba(56, 189, 248, 0.08);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
+      transform: translateY(-3px);
     }
 
-    /* Çerçevesiz / Minimalist İçerik Blokları */
-    .content-block {
-      margin-bottom: 2.5rem;
+    .skill-pill i {
+      color: var(--accent);
+      font-size: 1.1rem;
     }
 
-    .content-block h3 {
+    /* Proje Tablosu / Grid Kartları */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      max-width: 950px;
+    }
+
+    .project-card {
+      background: rgba(10, 22, 40, 0.4);
+      border: 1px solid rgba(56, 189, 248, 0.1);
+      padding: 1.8rem;
+      border-radius: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .project-card h3 {
       font-size: 1.25rem;
       color: #fff;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.5rem;
       font-weight: 700;
     }
 
-    .meta-info {
+    .project-tech {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.8rem;
       color: var(--accent);
@@ -241,51 +271,21 @@
       display: block;
     }
 
-    .content-block p {
+    .project-card p {
       color: var(--text-muted);
-      font-size: 0.95rem;
-      max-width: 700px;
-    }
-
-    /* Yetenek Listesi (Çerçevesiz) */
-    .skills-wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .skill-pill {
-      background: rgba(56, 189, 248, 0.04);
-      border: 1px solid rgba(56, 189, 248, 0.12);
-      padding: 0.6rem 1.2rem;
-      border-radius: 10px;
       font-size: 0.9rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      color: var(--text-main);
-      transition: all 0.3s ease;
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
     }
 
-    .skill-pill:hover {
-      border-color: var(--accent);
-      background: rgba(56, 189, 248, 0.08);
-      transform: translateY(-2px);
-    }
-
-    .skill-pill i {
+    .project-link {
       color: var(--accent);
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 3rem;
-      border-top: 1px solid rgba(56, 189, 248, 0.06);
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      font-family: 'JetBrains Mono', monospace;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
     }
   </style>
 </head>
@@ -296,46 +296,44 @@
 
   <!-- Navbar -->
   <nav>
-    <a href="#" class="logo">&lt;batuhan.dev /&gt;</a>
+    <a href="#home" class="logo">&lt;batuhan.dev /&gt;</a>
     <ul class="nav-links">
-      <li><a href="#about">Hakkımda</a></li>
-      <li><a href="#skills">Yetenekler</a></li>
-      <li><a href="#projects">Projeler</a></li>
-      <li><a href="#contact">İletişim</a></li>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
     </ul>
   </nav>
 
-  <div class="container">
-    
-    <!-- Hero / Giriş -->
-    <header class="hero animate-on-scroll">
+  <!-- 1. Sayfa: Home / Hero -->
+  <section id="home" class="page-section in-view">
+    <div>
       <div class="hero-tag">Game Developer & 3D Artist</div>
       <h1>Batuhan Egeli</h1>
-      <p>Unreal Engine 5, Unity ve Blender ile sürükleyici dijital dünyalar, atmosferler ve oyun mekanikleri inşa ediyorum.</p>
+      <p>Building immersive digital worlds, atmospheres, and interactive game mechanics using Unreal Engine 5, Unity, and Blender.</p>
       
       <div class="social-links">
         <a href="https://github.com/batuhanegeli" target="_blank" class="btn btn-primary">
-          <i class="fab fa-github"></i> GitHub
-        </a>
-        <a href="#contact" class="btn btn-secondary">
-          <i class="fas fa-envelope"></i> İletişime Geç
+          <i class="fab fa-github"></i> GitHub Profile
         </a>
       </div>
-    </header>
+    </div>
+  </section>
 
-    <!-- Hakkımda -->
-    <section id="about" class="animate-on-scroll">
-      <h2 class="section-title"><i class="fas fa-user-astronaut"></i> Hakkımda</h2>
-      <div class="content-block">
-        <p style="font-size: 1.05rem; line-height: 1.9; color: var(--text-main);">
-          Kod mimarisiyle estetik 3D görselleri harmanlamayı seven bir geliştiriciyim. Hem mobil platformlar için Unity tarafında projeler geliştiriyor hem de Unreal Engine 5 üzerinde derinlemesine atmosfer ve sahne tasarımı odaklı çalışmalar yapıyorum.
-        </p>
-      </div>
-    </section>
+  <!-- 2. Sayfa: About -->
+  <section id="about" class="page-section">
+    <div>
+      <h2 class="section-title"><i class="fas fa-user-astronaut"></i> About Me</h2>
+      <p style="font-size: 1.1rem; line-height: 1.9; color: var(--text-muted); max-width: 700px;">
+        I am a developer who loves blending clean code architecture with aesthetic 3D visuals. I develop mobile projects in Unity and focus deeply on environment design, cinematic lighting, and custom particle systems in Unreal Engine 5.
+      </p>
+    </div>
+  </section>
 
-    <!-- Yetenekler -->
-    <section id="skills" class="animate-on-scroll">
-      <h2 class="section-title"><i class="fas fa-terminal"></i> Yetenekler & Stack</h2>
+  <!-- 3. Sayfa: Skills -->
+  <section id="skills" class="page-section">
+    <div>
+      <h2 class="section-title"><i class="fas fa-terminal"></i> Skills & Stack</h2>
       <div class="skills-wrapper">
         <div class="skill-pill"><i class="fab fa-unity"></i> Unity Engine</div>
         <div class="skill-pill"><i class="fas fa-code"></i> C# Programming</div>
@@ -344,53 +342,46 @@
         <div class="skill-pill"><i class="fas fa-wind"></i> Niagara VFX</div>
         <div class="skill-pill"><i class="fab fa-git-alt"></i> Git & GitHub</div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Projeler -->
-    <section id="projects" class="animate-on-scroll">
-      <h2 class="section-title"><i class="fas fa-layer-group"></i> Projeler & Çalışmalar</h2>
+  <!-- 4. Sayfa: Projects (Tablo / Liste Formatı) -->
+  <section id="projects" class="page-section">
+    <div>
+      <h2 class="section-title"><i class="fas fa-layer-group"></i> Featured Projects</h2>
       
-      <div class="content-block animate-on-scroll">
-        <span class="meta-info">Unity / C# / Mobile</span>
-        <h3>CyberWarrior</h3>
-        <p>2.5D top-down survivor tarzında mobil oyun projesi. GitHub Desktop entegrasyonu ve URP tabanlı optimizasyon süreçleriyle geliştirilmektedir.</p>
-        <a href="https://github.com/batuhanegeli" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.6rem;">
-          Depoyu İncele <i class="fas fa-arrow-right" style="font-size: 0.7rem;"></i>
-        </a>
+      <div class="projects-grid">
+        <!-- Proje 1 -->
+        <div class="project-card">
+          <h3>CyberWarrior</h3>
+          <span class="project-tech">Tech: Unity / C# / URP</span>
+          <p>A 2.5D top-down survivor mobile game project built with custom workflows and optimized rendering pipelines.</p>
+          <a href="https://github.com/batuhanegeli" target="_blank" class="project-link">
+            View Repository <i class="fas fa-arrow-right" style="font-size: 0.7rem;"></i>
+          </a>
+        </div>
+
+        <!-- Proje 2 -->
+        <div class="project-card">
+          <h3>Cinematic Environment</h3>
+          <span class="project-tech">Tech: Unreal Engine 5 / Blender</span>
+          <p>A 3D world design concept featuring custom Niagara particle systems (dust/smoke), advanced blueprints, and cinematic lighting.</p>
+          <a href="https://github.com/batuhanegeli" target="_blank" class="project-link">
+            View Details <i class="fas fa-arrow-right" style="font-size: 0.7rem;"></i>
+          </a>
+        </div>
       </div>
 
-      <div class="content-block animate-on-scroll" style="margin-top: 3rem;">
-        <span class="meta-info">UE5 / Blender / 3D Art</span>
-        <h3>Cinematic Environment</h3>
-        <p>Özel Niagara partikül efektleri (kum/duman), gelişmiş Blueprint mantığı ve sinematik ışıklandırma barındıran konsept 3D dünya tasarımı.</p>
-        <a href="https://github.com/batuhanegeli" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.6rem;">
-          Detaylar <i class="fas fa-arrow-right" style="font-size: 0.7rem;"></i>
-        </a>
-      </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- İletişim -->
-    <section id="contact" class="animate-on-scroll">
-      <h2 class="section-title"><i class="fas fa-paper-plane"></i> İletişim</h2>
-      <div class="content-block">
-        <p style="margin-bottom: 1.5rem;">Yeni projelerde fikir alışverişi yapmak veya ortak çalışmalar geliştirmek için her zaman ulaşabilirsin.</p>
-        <a href="mailto:batuhan@email.com" class="btn btn-primary">
-          <i class="fas fa-paper-plane"></i> E-posta Gönder
-        </a>
-      </div>
-    </section>
-
-  </div>
-
-  <footer>
-    <p>&copy; 2026 Batuhan Egeli — Creative Portfolio</p>
-  </footer>
-
-  <!-- Kaydırma Efekti İçin JavaScript (Blur & Fade In/Out) -->
+  <!-- Sayfa Geçişlerini ve Blur Efektini Yürüten Script -->
   <script>
+    const sections = document.querySelectorAll('.page-section');
+
     const observerOptions = {
       root: null,
-      threshold: 0.12
+      threshold: 0.5 // Bölümün yarısı ekrana girdiğinde tetiklenir
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -403,8 +394,8 @@
       });
     }, observerOptions);
 
-    document.querySelectorAll('.animate-on-scroll').forEach((el) => {
-      observer.observe(el);
+    sections.forEach(section => {
+      observer.observe(section);
     });
   </script>
 
