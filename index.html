@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Batuhan Egeli | Game Developer & 3D Artist</title>
   
-  <!-- Lo-Fi & Cozy Google Fonts -->
+  <!-- Fontlar -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -13,14 +13,11 @@
 
   <style>
     :root {
-      --bg-dark: #07090e;
-      --card-bg: rgba(18, 24, 34, 0.7);
-      --card-border: rgba(0, 255, 136, 0.12);
-      --card-hover-border: rgba(0, 255, 136, 0.4);
-      --accent: #00ff88;
-      --accent-glow: rgba(0, 255, 136, 0.18);
-      --text-main: #edf2f7;
-      --text-muted: #8a99ad;
+      --bg-deep: #030712;
+      --accent: #38bdf8; /* Canlı Siber Mavi / Cyan */
+      --accent-glow: rgba(56, 189, 248, 0.15);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
     }
 
     * {
@@ -31,42 +28,50 @@
     }
 
     body {
-      background-color: var(--bg-dark);
+      background-color: var(--bg-deep);
       color: var(--text-main);
       font-family: 'Comfortaa', cursive, sans-serif;
-      line-height: 1.7;
+      line-height: 1.8;
       overflow-x: hidden;
     }
 
-    /* Akıcı Arka Plan Işık Efekti */
-    .glow-bg {
+    /* Hareketli Koyu Mavi Arka Plan Efekti */
+    .bg-animation {
       position: fixed;
-      top: 15%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 500px;
-      height: 350px;
-      background: radial-gradient(circle, var(--accent-glow) 0%, rgba(0,0,0,0) 75%);
-      filter: blur(100px);
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -2;
+      background: radial-gradient(circle at 50% 30%, #0a192f 0%, #030712 70%);
+    }
+
+    .ambient-glow {
+      position: fixed;
+      top: -10%;
+      left: 20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(14, 116, 144, 0.18) 0%, rgba(0,0,0,0) 70%);
+      filter: blur(120px);
       z-index: -1;
       pointer-events: none;
-      animation: pulseGlow 8s ease-in-out infinite alternate;
+      animation: floatGlow 12s ease-in-out infinite alternate;
     }
 
-    @keyframes pulseGlow {
-      0% { transform: translateX(-50%) scale(0.9); opacity: 0.6; }
-      100% { transform: translateX(-50%) scale(1.1); opacity: 1; }
+    @keyframes floatGlow {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(80px) scale(1.15); }
     }
 
-    /* Akışkan Navbar */
+    /* Navbar */
     nav {
       position: sticky;
       top: 0;
-      background: rgba(7, 9, 14, 0.8);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      padding: 1.2rem 2rem;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.08);
+      padding: 1.2rem 3rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -79,7 +84,6 @@
       font-weight: 700;
       color: var(--accent);
       text-decoration: none;
-      letter-spacing: -0.5px;
     }
 
     .nav-links {
@@ -100,68 +104,86 @@
       color: var(--accent);
     }
 
-    /* Kapsayıcı */
+    /* Kapsayıcı ve Sol Hizalama */
     .container {
-      max-width: 960px;
+      max-width: 900px;
       margin: 0 auto;
-      padding: 3.5rem 1.5rem;
+      padding: 4rem 2rem;
+      text-align: left; /* Tüm yazılar sol tarafta */
     }
 
     section {
-      margin-bottom: 5rem;
+      margin-bottom: 7rem;
     }
 
     .section-title {
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       font-weight: 700;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       display: flex;
       align-items: center;
       gap: 0.75rem;
       color: #fff;
+      letter-spacing: -0.5px;
     }
 
     .section-title i {
       color: var(--accent);
-      font-size: 1.4rem;
+      font-size: 1.5rem;
     }
 
-    /* Hero Alanı */
+    /* Kaydırma Efekti (Scroll Blur & Fade Animation) */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(40px);
+      filter: blur(14px);
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 1s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 1s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform, filter;
+    }
+
+    .animate-on-scroll.in-view {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+
+    /* Hero Bölümü */
     .hero {
-      text-align: center;
-      padding: 4rem 1rem 2rem;
+      padding: 5rem 0 3rem;
     }
 
     .hero-tag {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.85rem;
       color: var(--accent);
-      background: rgba(0, 255, 136, 0.08);
+      background: rgba(56, 189, 248, 0.08);
       padding: 0.4rem 1rem;
-      border-radius: 30px;
-      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
       display: inline-block;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
     }
 
     .hero h1 {
-      font-size: 2.8rem;
+      font-size: 3.2rem;
       font-weight: 700;
-      margin-bottom: 0.8rem;
-      letter-spacing: -1px;
+      margin-bottom: 1rem;
+      letter-spacing: -1.5px;
+      color: #fff;
     }
 
     .hero p {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       color: var(--text-muted);
-      max-width: 580px;
-      margin: 0 auto 2.2rem;
+      max-width: 600px;
+      margin-bottom: 2.5rem;
       font-weight: 400;
     }
 
     .social-links {
       display: flex;
-      justify-content: center;
       gap: 1rem;
     }
 
@@ -169,117 +191,98 @@
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
-      padding: 0.75rem 1.5rem;
+      padding: 0.8rem 1.6rem;
       border-radius: 12px;
       font-weight: 600;
       font-size: 0.9rem;
       text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.3s ease;
     }
 
     .btn-primary {
       background-color: var(--accent);
-      color: #07090e;
+      color: #030712;
     }
 
     .btn-primary:hover {
-      box-shadow: 0 0 25px rgba(0, 255, 136, 0.35);
-      transform: translateY(-3px);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+      transform: translateY(-2px);
     }
 
     .btn-secondary {
-      background: var(--card-bg);
-      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.03);
       color: var(--text-main);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .btn-secondary:hover {
       border-color: var(--accent);
-      transform: translateY(-3px);
-      background: rgba(18, 24, 34, 0.9);
+      background: rgba(56, 189, 248, 0.05);
+      transform: translateY(-2px);
     }
 
-    /* Grid ve Cam Efektli Kartlar */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
+    /* Çerçevesiz / Minimalist İçerik Blokları */
+    .content-block {
+      margin-bottom: 2.5rem;
     }
 
-    .card {
-      background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 1.8rem;
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      border-color: var(--card-hover-border);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 0.8rem;
-    }
-
-    .card-title {
-      font-size: 1.15rem;
-      font-weight: 700;
+    .content-block h3 {
+      font-size: 1.25rem;
       color: #fff;
+      margin-bottom: 0.4rem;
+      font-weight: 700;
     }
 
-    .date-badge {
+    .meta-info {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       color: var(--accent);
-      background: rgba(0, 255, 136, 0.06);
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
+      margin-bottom: 0.8rem;
+      display: block;
     }
 
-    /* Yetenek Etiketleri */
-    .skills-grid {
+    .content-block p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 700px;
+    }
+
+    /* Yetenek Listesi (Çerçevesiz) */
+    .skills-wrapper {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.8rem;
+      gap: 1rem;
     }
 
-    .skill-tag {
-      background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--card-border);
-      padding: 0.6rem 1.1rem;
+    .skill-pill {
+      background: rgba(56, 189, 248, 0.04);
+      border: 1px solid rgba(56, 189, 248, 0.12);
+      padding: 0.6rem 1.2rem;
       border-radius: 10px;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       font-weight: 600;
       display: flex;
       align-items: center;
       gap: 0.6rem;
-      transition: all 0.2s ease;
+      color: var(--text-main);
+      transition: all 0.3s ease;
     }
 
-    .skill-tag:hover {
+    .skill-pill:hover {
       border-color: var(--accent);
-      transform: scale(1.03);
+      background: rgba(56, 189, 248, 0.08);
+      transform: translateY(-2px);
     }
 
-    .skill-tag i {
+    .skill-pill i {
       color: var(--accent);
     }
 
     /* Footer */
     footer {
       text-align: center;
-      padding: 2.5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 3rem;
+      border-top: 1px solid rgba(56, 189, 248, 0.06);
       color: var(--text-muted);
       font-size: 0.8rem;
       font-family: 'JetBrains Mono', monospace;
@@ -288,7 +291,8 @@
 </head>
 <body>
 
-  <div class="glow-bg"></div>
+  <div class="bg-animation"></div>
+  <div class="ambient-glow"></div>
 
   <!-- Navbar -->
   <nav>
@@ -302,11 +306,12 @@
   </nav>
 
   <div class="container">
-    <!-- Hero Bölümü -->
-    <header class="hero">
+    
+    <!-- Hero / Giriş -->
+    <header class="hero animate-on-scroll">
       <div class="hero-tag">Game Developer & 3D Artist</div>
       <h1>Batuhan Egeli</h1>
-      <p>Unreal Engine 5, Unity ve Blender ile sürükleyici dijital dünyalar ve oyun mekanikleri inşa ediyorum.</p>
+      <p>Unreal Engine 5, Unity ve Blender ile sürükleyici dijital dünyalar, atmosferler ve oyun mekanikleri inşa ediyorum.</p>
       
       <div class="social-links">
         <a href="https://github.com/batuhanegeli" target="_blank" class="btn btn-primary">
@@ -319,82 +324,89 @@
     </header>
 
     <!-- Hakkımda -->
-    <section id="about">
+    <section id="about" class="animate-on-scroll">
       <h2 class="section-title"><i class="fas fa-user-astronaut"></i> Hakkımda</h2>
-      <div class="card">
-        <p style="color: var(--text-muted); margin-bottom: 1.2rem; line-height: 1.8;">
-          Kod mimarisiyle estetik 3D görselleri harmanlamayı seven bir geliştiriciyim. Hem mobil platformlar için Unity tarafında projeler geliştiriyor hem de Unreal Engine 5 üzerinde atmosfer ve sahne tasarımı odaklı çalışmalar yapıyorum.
+      <div class="content-block">
+        <p style="font-size: 1.05rem; line-height: 1.9; color: var(--text-main);">
+          Kod mimarisiyle estetik 3D görselleri harmanlamayı seven bir geliştiriciyim. Hem mobil platformlar için Unity tarafında projeler geliştiriyor hem de Unreal Engine 5 üzerinde derinlemesine atmosfer ve sahne tasarımı odaklı çalışmalar yapıyorum.
         </p>
-        <div style="display: flex; gap: 2.5rem; flex-wrap: wrap; font-size: 0.9rem;">
-          <div><strong style="color: var(--accent);">Odak:</strong> Game Dev & 3D Environment</div>
-          <div><strong style="color: var(--accent);">Araçlar:</strong> UE5, Unity, Blender, C#</div>
-        </div>
       </div>
     </section>
 
-    <!-- Teknolojiler -->
-    <section id="skills">
+    <!-- Yetenekler -->
+    <section id="skills" class="animate-on-scroll">
       <h2 class="section-title"><i class="fas fa-terminal"></i> Yetenekler & Stack</h2>
-      <div class="skills-grid">
-        <div class="skill-tag"><i class="fab fa-unity"></i> Unity Engine</div>
-        <div class="skill-tag"><i class="fas fa-code"></i> C# Programming</div>
-        <div class="skill-tag"><i class="fas fa-gamepad"></i> Unreal Engine 5</div>
-        <div class="skill-tag"><i class="fas fa-cube"></i> Blender 3D</div>
-        <div class="skill-tag"><i class="fas fa-wind"></i> Niagara VFX</div>
-        <div class="skill-tag"><i class="fab fa-git-alt"></i> Git & GitHub</div>
+      <div class="skills-wrapper">
+        <div class="skill-pill"><i class="fab fa-unity"></i> Unity Engine</div>
+        <div class="skill-pill"><i class="fas fa-code"></i> C# Programming</div>
+        <div class="skill-pill"><i class="fas fa-gamepad"></i> Unreal Engine 5</div>
+        <div class="skill-pill"><i class="fas fa-cube"></i> Blender 3D</div>
+        <div class="skill-pill"><i class="fas fa-wind"></i> Niagara VFX</div>
+        <div class="skill-pill"><i class="fab fa-git-alt"></i> Git & GitHub</div>
       </div>
     </section>
 
     <!-- Projeler -->
-    <section id="projects">
+    <section id="projects" class="animate-on-scroll">
       <h2 class="section-title"><i class="fas fa-layer-group"></i> Projeler & Çalışmalar</h2>
-      <div class="grid-2">
-        
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">CyberWarrior</h3>
-            <span class="date-badge">Unity / C#</span>
-          </div>
-          <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.2rem;">
-            2.5D top-down survivor tarzında mobil oyun projesi. GitHub Desktop entegrasyonu ve URP tabanlı optimizasyonlar.
-          </p>
-          <a href="https://github.com/batuhanegeli" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 600;">
-            Depoyu İncele <i class="fas fa-arrow-right" style="font-size: 0.75rem;"></i>
-          </a>
-        </div>
+      
+      <div class="content-block animate-on-scroll">
+        <span class="meta-info">Unity / C# / Mobile</span>
+        <h3>CyberWarrior</h3>
+        <p>2.5D top-down survivor tarzında mobil oyun projesi. GitHub Desktop entegrasyonu ve URP tabanlı optimizasyon süreçleriyle geliştirilmektedir.</p>
+        <a href="https://github.com/batuhanegeli" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.6rem;">
+          Depoyu İncele <i class="fas fa-arrow-right" style="font-size: 0.7rem;"></i>
+        </a>
+      </div>
 
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">Cinematic Environment</h3>
-            <span class="date-badge">UE5 / Blender</span>
-          </div>
-          <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.2rem;">
-            Özel Niagara partikül efektleri (kum/duman), Blueprint mantığı ve sinematik ışıklandırma içeren 3D dünya tasarımı.
-          </p>
-          <a href="https://github.com/batuhanegeli" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 600;">
-            Detaylar <i class="fas fa-arrow-right" style="font-size: 0.75rem;"></i>
-          </a>
-        </div>
-
+      <div class="content-block animate-on-scroll" style="margin-top: 3rem;">
+        <span class="meta-info">UE5 / Blender / 3D Art</span>
+        <h3>Cinematic Environment</h3>
+        <p>Özel Niagara partikül efektleri (kum/duman), gelişmiş Blueprint mantığı ve sinematik ışıklandırma barındıran konsept 3D dünya tasarımı.</p>
+        <a href="https://github.com/batuhanegeli" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.6rem;">
+          Detaylar <i class="fas fa-arrow-right" style="font-size: 0.7rem;"></i>
+        </a>
       </div>
     </section>
 
     <!-- İletişim -->
-    <section id="contact">
+    <section id="contact" class="animate-on-scroll">
       <h2 class="section-title"><i class="fas fa-paper-plane"></i> İletişim</h2>
-      <div class="card" style="text-align: center; padding: 2.8rem 1.5rem;">
-        <h3 style="margin-bottom: 0.6rem; font-size: 1.2rem; color: #fff;">Yeni projelerde buluşalım</h3>
-        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">Fikir alışverişi veya ortak çalışmalar için ulaşabilirsin.</p>
+      <div class="content-block">
+        <p style="margin-bottom: 1.5rem;">Yeni projelerde fikir alışverişi yapmak veya ortak çalışmalar geliştirmek için her zaman ulaşabilirsin.</p>
         <a href="mailto:batuhan@email.com" class="btn btn-primary">
           <i class="fas fa-paper-plane"></i> E-posta Gönder
         </a>
       </div>
     </section>
+
   </div>
 
   <footer>
-    <p>&copy; 2026 Batuhan Egeli — Crafted with cozy lo-fi vibes.</p>
+    <p>&copy; 2026 Batuhan Egeli — Creative Portfolio</p>
   </footer>
+
+  <!-- Kaydırma Efekti İçin JavaScript (Blur & Fade In/Out) -->
+  <script>
+    const observerOptions = {
+      root: null,
+      threshold: 0.12
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        } else {
+          entry.target.classList.remove('in-view');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+      observer.observe(el);
+    });
+  </script>
 
 </body>
 </html>
